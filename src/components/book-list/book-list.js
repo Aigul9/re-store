@@ -1,18 +1,45 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import BookListItem from '../book-list-item';
+import { withBookstoreService } from '../hoc';
+import * as actions from '../../actions';
+import { compose } from '../../utils';
 import './book-list.css';
 
-export default class BookList extends Component {
+class BookList extends Component {
+    componentDidMount() {
+        // 1. receive data
+        const { bookstoreService } = this.props;
+        const data = bookstoreService.getBooks();
+
+        // 2. dispatch action to store
+        this.props.booksLoaded(data);
+    }
+
     render() {
         const { books } = this.props;
+        console.log(books);
         return (
             <ul>
                 {
                     books.map(book => {
-                        <li key={book.id}><BookListItem book={book}/></li>
+                        return <li key={book.id}><BookListItem book={book}/></li>
                     })
                 }
             </ul>
         );
     }
 }
+
+const mapStateToProps = ({ books }) => {
+    return { books }
+};
+
+// const mapDispatchToProps = (dispatch) => {
+//     return bindActionCreators(actions, dispatch);
+// }
+
+export default compose(
+    withBookstoreService(),
+    connect(mapStateToProps, actions)
+)(BookList);

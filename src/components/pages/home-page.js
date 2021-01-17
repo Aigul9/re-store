@@ -5,7 +5,7 @@ const HomePage = () => {
     return (
         <>
             <div>Home Page</div>
-            <BookList books={[]}/>
+            <BookList />
         </>
     );
 };
