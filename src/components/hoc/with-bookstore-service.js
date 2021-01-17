@@ -16,7 +16,7 @@ const withBookstoreService = () => (Wrapped) => {
                 }
             </BookstoreServiceConsumer>
         );
-    };
+    }
 };
 
 export default withBookstoreService;
