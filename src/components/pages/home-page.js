@@ -1,13 +1,12 @@
 import React from 'react';
 import BookList from '../book-list';
-import ShoppingCartTable from '../shopping-cart-table';
+import './pages.css';
 
 const HomePage = () => {
     return (
         <>
-            <div>Home Page</div>
+            <div className="logo text-dark">Home Page</div>
             <BookList />
-            <ShoppingCartTable/>
         </>
     );
 };

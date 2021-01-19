@@ -39,7 +39,7 @@ const ShoppingCartTable = ({ items, total, onIncrease, onDecrease, onDelete }) =
 
   return (
     <div className="shopping-cart-table">
-      <h2>Your Order</h2>
+      <span className="logo-order">Your Order</span>
       <table className="table">
         <thead>
           <tr>
