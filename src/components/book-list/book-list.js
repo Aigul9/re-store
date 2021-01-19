@@ -46,7 +46,7 @@ class BookListContainer extends Component {
 }
 
 // pass data from state to our component as props
-const mapStateToProps = ({ books, loading, error }) => {
+const mapStateToProps = ({ bookList: { books, loading, error }}) => {
     return { books, loading, error };
 };
 
