@@ -6,6 +6,7 @@ import { fetchBooks, bookAddedToCart } from '../../actions';
 import { compose } from '../../utils';
 import Spinner from '../spinner';
 import ErrorIndicator from '../error-indicator';
+import { bindActionCreators } from 'redux';
 import './book-list.css';
 
 const BookList = ({ books, onAddedToCart }) => {
@@ -53,10 +54,15 @@ const mapStateToProps = ({ bookList: { books, loading, error }}) => {
 // object form and functional form
 const mapDispatchToProps = (dispatch, ownProps) => {
     const { bookstoreService } = ownProps;
-    return {
-        fetchBooks: fetchBooks(bookstoreService, dispatch),
-        onAddedToCart: (id) => dispatch(bookAddedToCart(id))
-    }
+    return bindActionCreators({
+        fetchBooks: fetchBooks(bookstoreService),
+        onAddedToCart: bookAddedToCart
+    }, dispatch);
+    // return {
+    //     // fetchBooks: fetchBooks(bookstoreService, dispatch),
+    //     fetchBooks: () => dispatch(fetchBooks(bookstoreService)()),
+    //     onAddedToCart: (id) => dispatch(bookAddedToCart(id))
+    // }
 };
 
 export default compose(

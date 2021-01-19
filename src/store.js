@@ -1,5 +1,6 @@
 import { createStore, compose, applyMiddleware } from 'redux';
 import reducer from './reducers';
+import thunkMiddleware from 'redux-thunk';
 
 const stringMiddleware = () => (dispatch) => (action) => {
     if (typeof action === 'string') {
@@ -49,9 +50,16 @@ const logMiddleware = ({getState}) => (next) => (action) => {
 // const store = createStore(reducer, logEnhancer);
 // const store = createStore(reducer, compose(stringEnhancer, logEnhancer)); // first, second
 const store = createStore(reducer, applyMiddleware(
-    stringMiddleware, logMiddleware)); // apply is an enhancer, lol
+    thunkMiddleware, stringMiddleware, logMiddleware)); // apply is an enhancer, lol
 
-store.dispatch('ACTION');
+const delayedActionCreator = (timeout) => (dispatch) => {
+    setTimeout(() => dispatch({
+        type: 'DELAYED_ACTION'
+    }), timeout);
+};
+
+// store.dispatch('ACTION');
+store.dispatch(delayedActionCreator(3000));
 
 // // monkey patching, if library does not support any extensions
 // const originalDispatch = store.dispatch;
